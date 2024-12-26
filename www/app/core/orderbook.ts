@@ -48,9 +48,6 @@ export module OrderBook {
 
 	const orderbook = new OrderBook();
 
-	export const pubsub = new EventTarget();
-
-
 	export function attachListener(ws: WebSocket, signal: AbortSignal) {
 		ws.addEventListener("error", ev => {
 			console.error(ev);
@@ -92,7 +89,6 @@ export module OrderBook {
 					}
 				}
 			}
-			pubsub.dispatchEvent(new MessageEvent("refresh"))
 		}, { signal });
 	}
 
