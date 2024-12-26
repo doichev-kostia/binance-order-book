@@ -1,5 +1,5 @@
-import { createHonoServer } from "react-router-hono-server/cloudflare";
-import { type Context, type Hono } from "hono";
+import { createHonoServer } from "react-router-hono-server/node";
+import { Hono, type Context } from "hono";
 import { type ServerBuild } from "react-router";
 
 
@@ -28,8 +28,14 @@ declare module "react-router" {
 }
 
 const server = await createHonoServer<ContextEnv>({
+	host: "0.0.0.0",
+	useWebSocket: false,
 	configure(server) {
 		server.get("/ping", async c => c.text("pong"));
+		/* Cloud Run */
+		server.get("/ready", async c => c.text("ok"));
+		/* Cloud Run */
+		server.get("/health", async c => c.text("ok"));
 	},
 	getLoadContext,
 });

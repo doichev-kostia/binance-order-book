@@ -1,6 +1,8 @@
 import { z } from "zod"
 import { BinaryHeap, descend, ascend } from "@std/data-structures";
 import { ulid } from "@std/ulid";
+import type { Connection } from "~/.client/ws.client";
+import * as Client from "~/.client/ws.client";
 
 export module OrderBook {
 	const formatter = new Intl.NumberFormat();
@@ -48,12 +50,12 @@ export module OrderBook {
 
 	const orderbook = new OrderBook();
 
-	export function attachListener(ws: WebSocket, signal: AbortSignal) {
-		ws.addEventListener("error", ev => {
+	export function attachListener(connection: Connection, signal: AbortSignal) {
+		Client.addEventListener(connection, "error", ev => {
 			console.error(ev);
 		}, { signal })
 
-		ws.addEventListener('message', function message(ev) {
+		Client.addEventListener(connection, 'message', function message(ev) {
 			const json = JSON.parse(ev.data);
 			const validation = OrderBookUpdate.safeParse(json);
 			if (validation.success === false) {

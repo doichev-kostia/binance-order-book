@@ -1,24 +1,34 @@
 import type { Route } from "./+types/home";
 import { OrderBook } from "~/core/orderbook";
-import { useEffect, useRef, useState } from "react";
-import { atom, useAtomValue } from "jotai";
+import { useEffect, useState } from "react";
+import { useAtomValue } from "jotai";
+import { connectionAtom } from "~/.client/connection";
+import * as Client from "~/.client/ws.client";
 
-const ws = atom(new WebSocket("wss://stream.binance.com:9443/ws/solusdt@depth"));
+export async function clientLoader() {
+	return null;
+}
+
+export function HydrateFallback() {
+	return <h1>Loading...</h1>;
+}
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-	const connection = useAtomValue(ws);
+	const connection = useAtomValue(connectionAtom);
 	const [orderBook, setOrderBook] = useState(OrderBook.list());
 
 	useEffect(() => {
+		Client.reconnect(connection);
 		const ac = new AbortController();
 		OrderBook.attachListener(connection, ac.signal);
 
-		connection.addEventListener("message", () => {
+		Client.addEventListener(connection, "message", () => {
 			setOrderBook(OrderBook.list());
 		}, { signal: ac.signal });
 
 		return () => {
 			ac.abort();
+			Client.close(connection);
 		}
 	}, [connection])
 

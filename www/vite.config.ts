@@ -4,7 +4,6 @@ import tailwindcss from "tailwindcss";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { reactRouterHonoServer } from "react-router-hono-server/dev";
-import { cloudflareDevProxy } from "@react-router/dev/vite/cloudflare";
 
 export default defineConfig({
 	css: {
@@ -13,8 +12,7 @@ export default defineConfig({
 		},
 	},
 	plugins: [
-		cloudflareDevProxy(),
-		reactRouterHonoServer({ runtime: "cloudflare", serverEntryPoint: "./workers/server.ts" }),
+		reactRouterHonoServer({ runtime: "node", serverEntryPoint: "./workers/server.ts" }),
 		reactRouter(),
 		tsconfigPaths()
 	],
