@@ -1,24 +1,26 @@
 import type { Route } from "./+types/home";
 import { OrderBook } from "~/core/orderbook";
 import { useEffect, useRef, useState } from "react";
+import { atom, useAtomValue } from "jotai";
 
+const ws = atom(new WebSocket("wss://stream.binance.com:9443/ws/solusdt@depth"));
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-	const ws = useRef(new WebSocket("wss://stream.binance.com:9443/ws/solusdt@depth"));
+	const connection = useAtomValue(ws);
 	const [orderBook, setOrderBook] = useState(OrderBook.list());
 
 	useEffect(() => {
 		const ac = new AbortController();
-		OrderBook.attachListener(ws.current, ac.signal);
+		OrderBook.attachListener(connection, ac.signal);
 
-		ws.current.addEventListener("message", () => {
+		connection.addEventListener("message", () => {
 			setOrderBook(OrderBook.list());
 		}, { signal: ac.signal });
 
 		return () => {
 			ac.abort();
 		}
-	}, [ws.current])
+	}, [connection])
 
 	return (
 		<section data-page="home" className="container mx-auto">
