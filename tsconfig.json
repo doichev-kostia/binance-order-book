@@ -1,0 +1,19 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
+		"isolatedModules": true,
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": false,
+		"verbatimModuleSyntax": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strictNullChecks": true,
+		"allowUnreachableCode": false,
+		"pretty": true,
+		"newLine": "lf",
+		"skipLibCheck": true
+	}
+}

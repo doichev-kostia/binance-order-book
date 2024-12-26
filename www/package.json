@@ -1,0 +1,46 @@
+{
+	"name": "www",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "cross-env NODE_ENV=production react-router build",
+		"dev": "react-router dev",
+		"start": "cross-env NODE_ENV=production react-router-serve ./build/server/index.js",
+		"typecheck": "react-router typegen && tsc"
+	},
+	"dependencies": {
+		"@react-router/node": "^7.1.1",
+		"@react-router/serve": "^7.1.1",
+		"@std/assert": "npm:@jsr/std__assert@^1.0.10",
+		"@std/data-structures": "npm:@jsr/std__data-structures@^1.0.5",
+		"@std/fmt": "npm:@jsr/std__fmt@^1.0.3",
+		"@std/ulid": "npm:@jsr/std__ulid@1.0.0-rc.4",
+		"@tanstack/react-query": "^5.62.10",
+		"@tanstack/react-query-devtools": "^5.62.10",
+		"@types/ws": "^8.5.13",
+		"hono": "^4.6.14",
+		"isbot": "^5.1.17",
+		"ky": "^1.7.4",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"react-router": "^7.1.1",
+		"react-router-hono-server": "^2.3.0",
+		"remeda": "^2.19.0",
+		"ws": "^8.18.0",
+		"zod": "^3.24.1"
+	},
+	"devDependencies": {
+		"@react-router/dev": "^7.1.1",
+		"@types/node": "^20",
+		"@types/react": "^19.0.1",
+		"@types/react-dom": "^19.0.1",
+		"autoprefixer": "^10.4.20",
+		"cross-env": "^7.0.3",
+		"postcss": "^8.4.49",
+		"tailwindcss": "^3.4.16",
+		"typescript": "^5.7.2",
+		"vite": "^5.4.11",
+		"vite-tsconfig-paths": "^5.1.4",
+		"wrangler": "^3.99.0"
+	}
+}

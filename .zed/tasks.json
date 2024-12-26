@@ -1,0 +1,20 @@
+[
+	{
+		"label": "vitest",
+		"command": "pnpm exec vitest",
+		"args": [
+			"run",
+			"\"$ZED_RELATIVE_FILE\""
+		],
+		"tags": [
+			"vitest-test"
+		]
+	},
+	{
+		"label": "tsx",
+		"command": "pnpm exec tsx",
+		"args": [
+			"\"$ZED_RELATIVE_FILE\""
+		]
+	}
+]
